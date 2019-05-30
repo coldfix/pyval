@@ -3,7 +3,10 @@
 Show value of a fully-qualified symbol (in a module or builtins).
 
 Usage:
-    pyval [EXPR]...
+    pyval [-r] [EXPR]...
+
+Options:
+    -r, --repr              Print `repr()` of object
 
 Examples:
     $ pyval math.pi
@@ -12,6 +15,8 @@ Examples:
     $ pyval sys.platform
     linux
 """
+
+import argparse
 
 
 def resolve(symbol):
@@ -35,12 +40,28 @@ def exec_(source, globals, locals):
     exec(source, globals, locals)
 
 
-def main(*expressions):
+def main(args=None):
     """Show the value for all given expressions."""
-    for expr in expressions:
-        print(resolve(expr))
+    parser = argument_parser()
+    args = parser.parse_args()
+    for expr in args.EXPRS:
+        value = resolve(expr)
+        if args.repr:
+            print(repr(value))
+        else:
+            print(value)
+
+
+def argument_parser():
+    """Create parser for this script's command line arguments."""
+    parser = argparse.ArgumentParser(
+        description='Show value of a fully-qualified symbol (in a module or builtins).')
+    parser.add_argument('--repr', '-r', action='store_true',
+                        help='Print repr() of object')
+    parser.add_argument('EXPRS', nargs='+', help='Symbols to be resolved')
+    return parser
 
 
 if __name__ == '__main__':
     import sys
-    sys.exit(main(*sys.argv[1:]))
+    sys.exit(main(sys.argv[1:]))
