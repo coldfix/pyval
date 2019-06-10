@@ -45,10 +45,17 @@ class NameResolver(ast.NodeVisitor):
 
     def visit_Attribute(self, node):
         parts = []
-        while isinstance(node, ast.Attribute):
-            parts.insert(0, node.attr)
-            node = node.value
-        parts.insert(0, node.id)
+        while True:
+            if isinstance(node, ast.Attribute):
+                parts.insert(0, node.attr)
+                node = node.value
+            elif isinstance(node, (ast.Subscript, ast.Call)):
+                parts.clear()
+            elif isinstance(node, ast.Name):
+                parts.insert(0, node.id)
+                break
+            else:
+                raise NotImplementedError("Unexpected node: {}".format(node))
         resolve('.'.join(parts), self.locals)
 
 
