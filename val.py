@@ -28,7 +28,6 @@ __version__ = '0.0.3'
 
 import ast
 import argparse
-from pprint import pprint
 
 
 class NameResolver(ast.NodeVisitor):
@@ -70,22 +69,29 @@ def resolve(symbol, locals):
             break
 
 
+def formatter(args):
+    """Return formatter requested by the command line arguments."""
+    if args.repr:
+        return repr
+    elif args.pprint:
+        from pprint import pformat
+        return pformat
+    elif args.format:
+        return lambda value: format(value, args.format)
+    else:
+        return str
+
+
 def main(args=None):
     """Show the value for all given expressions."""
     parser = argument_parser()
     args = parser.parse_args()
+    fmt = formatter(args)
     for expr in args.EXPRS:
         locals = {}
         NameResolver(locals).visit(ast.parse(expr))
         value = eval(expr, locals)
-        if args.repr:
-            print(repr(value))
-        elif args.pprint:
-            pprint(value)
-        elif args.format:
-            print(format(value, args.format))
-        else:
-            print(value)
+        print(fmt(value))
 
 
 def argument_parser():
