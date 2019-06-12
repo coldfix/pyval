@@ -45,18 +45,18 @@ class NameResolver(ast.NodeVisitor):
 
     def visit_Attribute(self, node):
         parts = []
-        while True:
-            if isinstance(node, ast.Attribute):
-                parts.insert(0, node.attr)
-                node = node.value
-            elif isinstance(node, (ast.Subscript, ast.Call)):
-                parts.clear()
-            elif isinstance(node, ast.Name):
-                parts.insert(0, node.id)
-                break
-            else:
-                raise NotImplementedError("Unexpected node: {}".format(node))
-        resolve('.'.join(parts), self.locals)
+        while isinstance(node, ast.Attribute):
+            parts.insert(0, node.attr)
+            node = node.value
+        if isinstance(node, ast.Name):
+            parts.insert(0, node.id)
+            resolve('.'.join(parts), self.locals)
+        else:
+            # We landed here due to an attribute access on some other
+            # expression (function call, literal, tuple, etc…), and must
+            # recurse in order to handle attributes or names within this
+            # subexpression:
+            self.visit(node)
 
 
 def resolve(symbol, locals):
