@@ -20,7 +20,7 @@ Examples:
     0.7071067811865475
 """
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 import ast
 import argparse
