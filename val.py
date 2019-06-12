@@ -69,16 +69,9 @@ def resolve(symbol, locals):
     for i in range(len(parts)):
         name = '.'.join(parts[:i+1])
         try:
-            exec_('import ' + name, locals, locals)
+            exec('import ' + name, locals, locals)
         except ImportError:
             break
-
-
-def exec_(source, globals, locals):
-    """Execute the given source string. This is a thin wrapper over ``exec``
-    needed for python2 compatibility, where exec is a statement with
-    restrictions on the scope in which it can be used."""
-    exec(source, globals, locals)
 
 
 def main(args=None):
