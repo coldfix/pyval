@@ -26,6 +26,15 @@ More complex expressions are possible too:
     $ pyval 'math.sin(math.pi/4)'
     0.7071067811865475
 
+The output can be influenced using one of the following command line
+arguments:
+
+=========================== ================================================
+``-r, --repr``              Print ``repr(obj)``
+``-p, --pprint``            Print ``pprint(obj)``
+``-f SPEC, --format SPEC``  Print ``format(obj, SPEC)``
+=========================== ================================================
+
 
 Installation
 ------------

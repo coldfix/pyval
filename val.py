@@ -3,12 +3,12 @@
 Show value of a fully-qualified symbol (in a module or builtins).
 
 Usage:
-    pyval [-r] [EXPR]...
+    pyval [-r | -p | -f SPEC] [EXPR]...
 
 Options:
-    -r, --repr                  Print `repr()` of object
-    -p, --pprint                Pretty-print using pprint
-    -f SPEC, --format SPEC      Format value using the given format spec
+    -r, --repr                  Print `repr(obj)`
+    -p, --pprint                Print `pprint.pformat(obj)`
+    -f SPEC, --format SPEC      Print `format(obj, SPEC)`
 
 Examples:
     $ pyval sys.platform
@@ -100,11 +100,11 @@ def argument_parser():
         description='Show value of given expressions, resolving names as'
         ' necessary through module imports.')
     parser.add_argument('--repr', '-r', action='store_true',
-                        help='Print repr() of object')
-    parser.add_argument('--format', '-f',
-                        help='Format value using the given format spec')
+                        help='Print `repr(obj)`')
     parser.add_argument('--pprint', '-p', action='store_true',
-                        help='Pretty-print using pprint')
+                        help='Print `pformat(obj)`')
+    parser.add_argument('--format', '-f', metavar='SPEC',
+                        help='Print `format(obj, SPEC)`')
     parser.add_argument('EXPRS', nargs='+', help='Expressions to be evaluated')
     return parser
 
