@@ -32,7 +32,7 @@ Installation
 
 The utility can be installed as follows::
 
-    pip install --user pyval
+    pip install --user eval
 
 It is also possible to simply download ``val.py`` and symlink or move under
 the name of your choice into your PATH, e.g.:
