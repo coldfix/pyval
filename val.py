@@ -19,6 +19,8 @@ Examples:
     0.7071067811865475
 """
 
+__version__ = '0.0.1'
+
 import ast
 import argparse
 

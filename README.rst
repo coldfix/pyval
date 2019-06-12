@@ -30,15 +30,20 @@ More complex expressions are possible too:
 Installation
 ------------
 
-Download ``val.py`` and symlink or move under the name of your choice into
-your PATH, e.g.:
+The utility can be installed as follows::
+
+    pip install --user pyval
+
+It is also possible to simply download ``val.py`` and symlink or move under
+the name of your choice into your PATH, e.g.:
 
 .. code-block:: bash
 
     wget https://raw.githubusercontent.com/coldfix/pyval/master/val.py \
         -O ~/.local/bin/pyval
 
-Once this is done, it can be used within any python enviroment on your system.
+Once either of these is done, it can be used within any python enviroment on
+your system, as long as it is accessible in PATH.
 
 By default it uses the currently activated environment. In order to use it
 with unactivated python interpreter, you currently have to call the
