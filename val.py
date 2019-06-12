@@ -6,8 +6,9 @@ Usage:
     pyval [-r] [EXPR]...
 
 Options:
-    -r, --repr              Print `repr()` of object
-    -p, --pprint            Pretty-print using pprint
+    -r, --repr                  Print `repr()` of object
+    -p, --pprint                Pretty-print using pprint
+    -f SPEC, --format SPEC      Format value using the given format spec
 
 Examples:
     $ pyval sys.platform
@@ -18,6 +19,9 @@ Examples:
 
     $ pyval 'math.sin(math.pi/4)'
     0.7071067811865475
+
+    $ pyval -f .3f math.pi
+    3.142
 """
 
 __version__ = '0.0.3'
@@ -78,6 +82,8 @@ def main(args=None):
             print(repr(value))
         elif args.pprint:
             pprint(value)
+        elif args.format:
+            print(format(value, args.format))
         else:
             print(value)
 
@@ -89,6 +95,8 @@ def argument_parser():
         ' necessary through module imports.')
     parser.add_argument('--repr', '-r', action='store_true',
                         help='Print repr() of object')
+    parser.add_argument('--format', '-f',
+                        help='Format value using the given format spec')
     parser.add_argument('--pprint', '-p', action='store_true',
                         help='Pretty-print using pprint')
     parser.add_argument('EXPRS', nargs='+', help='Expressions to be evaluated')
