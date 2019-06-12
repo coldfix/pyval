@@ -27,14 +27,6 @@ import argparse
 from pprint import pprint
 
 
-def eval_(expr):
-    """Eval an expression, resolve names by importing modules as necessary.
-    Returns the resulting value."""
-    locals = {}
-    NameResolver(locals).visit(ast.parse(expr))
-    return eval(expr, locals)
-
-
 class NameResolver(ast.NodeVisitor):
 
     """Resolve names within the given expression and updates ``locals`` with
@@ -79,7 +71,9 @@ def main(args=None):
     parser = argument_parser()
     args = parser.parse_args()
     for expr in args.EXPRS:
-        value = eval_(expr)
+        locals = {}
+        NameResolver(locals).visit(ast.parse(expr))
+        value = eval(expr, locals)
         if args.repr:
             print(repr(value))
         elif args.pprint:
