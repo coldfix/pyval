@@ -7,7 +7,7 @@ Usage:
 
 Options:
     -r, --repr              Print `repr()` of object
-    -pp, --pprint           Pretty-print using pprint
+    -p, --pprint            Pretty-print using pprint
 
 Examples:
     $ pyval sys.platform
@@ -89,7 +89,7 @@ def argument_parser():
         ' necessary through module imports.')
     parser.add_argument('--repr', '-r', action='store_true',
                         help='Print repr() of object')
-    parser.add_argument('--pprint', '-pp', action='store_true',
+    parser.add_argument('--pprint', '-p', action='store_true',
                         help='Pretty-print using pprint')
     parser.add_argument('EXPRS', nargs='+', help='Expressions to be evaluated')
     return parser

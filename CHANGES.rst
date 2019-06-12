@@ -12,7 +12,7 @@ Date: 13.06.2019
 ~~~~~
 Date: 12.06.2019
 
-- add ``-pp`` argument to pretty-print
+- add ``--pprint`` argument to pretty-print
 
 
 0.0.1
