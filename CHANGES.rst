@@ -1,6 +1,14 @@
 Changelog
 ---------
 
+0.0.4
+~~~~~
+Date: 13.06.2019
+
+- learn ``--format SPEC`` argument
+- learn ``--json`` argument
+
+
 0.0.3
 ~~~~~
 Date: 13.06.2019

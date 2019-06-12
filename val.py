@@ -25,7 +25,7 @@ Examples:
     3.142
 """
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 import ast
 import argparse
