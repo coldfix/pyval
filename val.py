@@ -64,8 +64,7 @@ class NameResolver(ast.NodeVisitor):
 
 
 def resolve(symbol, locals):
-    """Resolve a fully-qualified name by importing modules as necessary.
-    Returns the object referenced by the name."""
+    """Resolve a fully-qualified name by importing modules as necessary."""
     parts = symbol.split('.')
     for i in range(len(parts)):
         name = '.'.join(parts[:i+1])
@@ -73,7 +72,6 @@ def resolve(symbol, locals):
             exec_('import ' + name, locals, locals)
         except ImportError:
             break
-    return eval(symbol, locals)
 
 
 def exec_(source, globals, locals):
