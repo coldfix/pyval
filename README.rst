@@ -31,6 +31,7 @@ arguments:
 
 =========================== ================================================
 ``-r, --repr``              Print ``repr(obj)``
+``-j, --json``              Print ``json.dumps(obj)``
 ``-p, --pprint``            Print ``pprint(obj)``
 ``-f SPEC, --format SPEC``  Print ``format(obj, SPEC)``
 =========================== ================================================

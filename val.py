@@ -3,10 +3,11 @@
 Show value of a fully-qualified symbol (in a module or builtins).
 
 Usage:
-    pyval [-r | -p | -f SPEC] [EXPR]...
+    pyval [-r | -j | -p | -f SPEC] [EXPR]...
 
 Options:
     -r, --repr                  Print `repr(obj)`
+    -j, --json                  Print `json.dumps(obj)`
     -p, --pprint                Print `pprint.pformat(obj)`
     -f SPEC, --format SPEC      Print `format(obj, SPEC)`
 
@@ -73,6 +74,9 @@ def formatter(args):
     """Return formatter requested by the command line arguments."""
     if args.repr:
         return repr
+    elif args.json:
+        from json import dumps
+        return dumps
     elif args.pprint:
         from pprint import pformat
         return pformat
@@ -101,6 +105,8 @@ def argument_parser():
         ' necessary through module imports.')
     parser.add_argument('--repr', '-r', action='store_true',
                         help='Print `repr(obj)`')
+    parser.add_argument('--json', '-j', action='store_true',
+                        help='Print `json.dumps(obj)`')
     parser.add_argument('--pprint', '-p', action='store_true',
                         help='Print `pformat(obj)`')
     parser.add_argument('--format', '-f', metavar='SPEC',
