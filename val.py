@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# encoding: utf-8
 """
 Show value of a fully-qualified symbol (in a module or builtins).
 
