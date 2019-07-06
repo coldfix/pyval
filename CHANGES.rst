@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+0.0.5
+~~~~~
+Date: 06.07.2019
+
+- fix SyntaxError due to unicode symbol on py2
+
+
 0.0.4
 ~~~~~
 Date: 13.06.2019
