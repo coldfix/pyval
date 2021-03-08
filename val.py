@@ -30,6 +30,10 @@ __version__ = '0.0.5'
 
 import ast
 import argparse
+try:
+    import builtins
+except ImportError:
+    import __builtin__ as builtins
 
 
 class NameResolver(ast.NodeVisitor):
@@ -61,14 +65,35 @@ class NameResolver(ast.NodeVisitor):
 
 
 def resolve(symbol, locals):
-    """Resolve a fully-qualified name by importing modules as necessary."""
+    """
+    Resolve fully qualified object name by importing its containing module.
+
+    Example:
+
+        >>> import_("math.sin")
+        <built-in function sin>
+
+        >>> import_("os.path.pathsep")
+        ':'
+    """
+    obj = builtins
     parts = symbol.split('.')
     for i in range(len(parts)):
-        name = '.'.join(parts[:i+1])
         try:
-            exec('import ' + name, locals, locals)
-        except ImportError:
-            break
+            return nested_getattr(obj, *parts[i:])
+        except Exception:
+            modname = '.'.join(parts[:i + 1])
+            exec('import ' + modname, locals, locals)
+            obj = __import__(modname, None, None, parts[i + 1:i + 2])
+    return obj
+
+
+def nested_getattr(obj, *attrs):
+    """Recursively get nested attribute from obj."""
+    for attr in attrs:
+        if attr:
+            obj = getattr(obj, attr)
+    return obj
 
 
 def formatter(args):
